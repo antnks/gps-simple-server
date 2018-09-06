@@ -7,4 +7,4 @@ Requirements:
 
 To start server:
 
-`tcpserver -R -H -v 0.0.0.0 12345 /path/to/parser.sh`
+`tcpserver -R -H -v 0.0.0.0 12345 /path/to/server.sh`
