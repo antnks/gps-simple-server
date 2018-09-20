@@ -6,6 +6,7 @@ DATELIMIT=$1
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" creator=\"h02-server\">"
 echo "<trk><trkseg>"
 
+laststat=0
 while IFS=, read -r sig id ver time satt alt altd long longd speed az date flags data1 data3 data4 data5
 do
 
@@ -16,6 +17,15 @@ do
 	y="$(echo $date | tail -c 3)"
 
 	recorddate="20$y$M$d"
+
+	# if command line param "stats" specified - check and output days stats only
+	if [ ! -z "$DATELIMIT"  ] && [ "$DATELIMIT" == "stats" ]
+	then
+		if [ "$laststat" != "$recorddate" ]; then echo $recorddate; fi
+		laststat=$recorddate
+		continue
+	fi
+
 	if [ ! -z "$DATELIMIT"  ] && [ "$recorddate" -lt "$DATELIMIT" ]; then continue; fi
 
 	h="$(echo $time | head -c 2)"
