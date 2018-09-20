@@ -3,7 +3,7 @@ Simple server to receive GPS data from h02 protocol compatible devices, like sin
 
 Requirements:
 
-`sudo apt-get install ucspi-tcp`
+`sudo apt-get install ucspi-tcp bc`
 
 To start server:
 
