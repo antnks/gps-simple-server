@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SKIPINVALID=1
+DATELIMIT=$1
 
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" creator=\"h02-server\">"
 echo "<trk><trkseg>"
@@ -13,6 +14,9 @@ do
 	d="$(echo $date | head -c 2)"
 	M="$(echo $date | head -c 4 | tail -c 2)"
 	y="$(echo $date | tail -c 3)"
+
+	recorddate="20$y$M$d"
+	if [ ! -z "$DATELIMIT"  ] && [ "$recorddate" -lt "$DATELIMIT" ]; then continue; fi
 
 	h="$(echo $time | head -c 2)"
 	m="$(echo $time | head -c 4 | tail -c 2)"
