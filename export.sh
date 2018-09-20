@@ -1,12 +1,14 @@
 #!/bin/bash
 
-#2007-10-14T10:09:57Z
+SKIPINVALID=1
 
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" creator=\"h02-server\">"
 echo "<trk><trkseg>"
 
 while IFS=, read -r sig id ver time satt alt altd long longd speed az date flags data1 data3 data4 data5
 do
+
+	if [ "$satt" != "A" ] && [ "$SKIPINVALID" == "1" ]; then continue; fi
 
 	d="$(echo $date | head -c 2)"
 	M="$(echo $date | head -c 4 | tail -c 2)"
