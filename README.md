@@ -8,3 +8,5 @@ Requirements:
 To start server:
 
 `tcpserver -R -H -v 0.0.0.0 12345 /path/to/server.sh`
+
+Protocol: https://dl.dropboxusercontent.com/s/o1723krpnn0jvqo/document.pdf
