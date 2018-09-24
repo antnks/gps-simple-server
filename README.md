@@ -1,5 +1,7 @@
-# h02-server
-Simple server to receive GPS data from h02 protocol compatible devices, like sinotrack st-901
+# GPS simple server
+Simple server to receive GPS data from a tracker device. Supported protocols:
+
+* h02 (sinotrack st-901)
 
 Requirements:
 
