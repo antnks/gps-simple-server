@@ -20,22 +20,27 @@ touch $DB_H0_ER
 while read line
 do
 	sig="$(echo $line | head -c 1)"
+	DB_WRITE=""
 
+	# detect protocol
 	if [ "$sig" == "$SIG_H0" ]
 	then
-		printf '%s\n' "$line" >> $DB_H0_OK.csv
+		DB_WRITE=$DB_H0_OK
 	else
-		printf '%s\n' "$line" >> $DB_H0_ER
+		printf '%s\n' "$line" >> $DB_ERRORS
 		exit 1
 	fi
 
+	# protocol has been detected and varibale set, write it
+	printf '%s\n' "$line" >> $DB_WRITE.csv
+
 	# db rotate
-	sz=`stat --printf="%s" $DB_H0_OK.csv`
+	sz=`stat --printf="%s" $DB_WRITE.csv`
 	if [ "$sz" -gt "$LOGROTATE" ]
 	then
 		backup=`date +"%Y%m%d%H%M%S"`
-		gzip -c $DB_H0_OK.csv > ${DB_H0_OK}_${backup}.csv.gz
-		rm $DB_H0_OK.csv
+		gzip -c $DB_WRITE.csv > ${DB_WRITE}_${backup}.csv.gz
+		rm $DB_WRITE.csv
 	fi
 
 done
