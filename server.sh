@@ -23,6 +23,9 @@ do
 	sig="$(echo $line | head -c 1)"
 	DB_WRITE=""
 
+	# dump received text to syslog
+	#logger "$line"
+
 	# detect protocol
 	if [ "$sig" == "$SIG_H0" ]
 	then
