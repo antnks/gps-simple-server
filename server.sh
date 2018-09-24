@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROCESS_SINGLE_LINE=1
+PROCESS_SINGLE_LINE=0
 BASE_DIR=/path/to/
 
 DB_H0_OK=$BASE_DIR/server_h0
