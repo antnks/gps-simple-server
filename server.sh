@@ -1,12 +1,14 @@
 #!/bin/bash
 
-DB_H0_OK=/path/to/server
-DB_H0_ER=/path/to/server_error.log
+BASE_DIR=/path/to/
+
+DB_H0_OK=$BASE_DIR/server_h0
 
 DELIM_H0="#"
 
 SIG_H0="*"
 
+DB_ERRORS=$BASE_DIR/server_error.log
 LOGROTATE=30000000
 
 # delimeters of supported protocols
