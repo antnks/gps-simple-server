@@ -4,10 +4,13 @@ PROCESS_SINGLE_LINE=1
 BASE_DIR=/path/to/
 
 DB_H0_OK=$BASE_DIR/server_h0
+DB_WA_OK=$BASE_DIR/server_wa
 
 DELIM_H0="#"
+DELIM_WA="]"
 
 SIG_H0="*"
+SIG_WA="["
 
 DB_ERRORS=$BASE_DIR/server_error.log
 LOGROTATE=30000000
@@ -17,6 +20,7 @@ while IFS= read -r -N 1 c
 do
 	case "$c" in
 		$DELIM_H0) line=$str; str="" ;;
+		$DELIM_WA) line=$str; str="" ;;
 		*)         str="$str$c"
 	esac
 	if [ ! -z "$str" ]; then continue; fi
@@ -31,6 +35,9 @@ do
 	if [ "$sig" == "$SIG_H0" ]
 	then
 		DB_WRITE=$DB_H0_OK
+	elif [ "$sig" == "$SIG_WA" ]
+	then
+		DB_WRITE=$DB_WA_OK
 	else
 		printf '%s\n' "$line" >> $DB_ERRORS
 		exit 1
