@@ -1,5 +1,6 @@
 #!/bin/bash
 
+PROCESS_SINGLE_LINE=1
 BASE_DIR=/path/to/
 
 DB_H0_OK=$BASE_DIR/server_h0
@@ -41,6 +42,13 @@ do
 		backup=`date +"%Y%m%d%H%M%S"`
 		gzip -c $DB_WRITE.csv > ${DB_WRITE}_${backup}.csv.gz
 		rm $DB_WRITE.csv
+	fi
+
+	# one line per command only - exit after processing first line
+	# use this together with "timeout" bash command to prevent stalled scripts and DoS
+	if [ "$PROCESS_SINGLE_LINE" == "1" ]
+	then
+		exit 0
 	fi
 
 done
