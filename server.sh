@@ -12,14 +12,15 @@ SIG_H0="*"
 DB_ERRORS=$BASE_DIR/server_error.log
 LOGROTATE=30000000
 
-# delimeters of supported protocols
-IFS="$DELIM_H0"
-
-touch $DB_H0_OK.csv
-touch $DB_H0_ER
-
-while read line
+# read char by char until we find one of valid delimiters
+while IFS= read -r -N 1 c
 do
+	case "$c" in
+		$DELIM_H0) line=$str; str="" ;;
+		*)         str="$str$c"
+	esac
+	if [ ! -z "$str" ]; then continue; fi
+
 	sig="$(echo $line | head -c 1)"
 	DB_WRITE=""
 
