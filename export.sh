@@ -12,14 +12,29 @@ echo "<trk><trkseg>"
 laststat=0
 while IFS=, read -r -a FIELD
 do
+	sig="$(echo ${FIELD[0]} | head -c 1)"
 
-	time=${FIELD[3]}
-	date=${FIELD[11]}
-	satt=${FIELD[4]}
-	alt=${FIELD[5]}
-	altd=${FIELD[6]}
-	long=${FIELD[7]}
-	longd=${FIELD[8]}
+	if [ "$sig" == "$SIG_H0" ]
+	then
+		time=${FIELD[3]}
+		date=${FIELD[11]}
+		satt=${FIELD[4]}
+		alt=${FIELD[5]}
+		altd=${FIELD[6]}
+		long=${FIELD[7]}
+		longd=${FIELD[8]}
+	elif [ "$sig" == "$SIG_WA" ]
+	then
+		time=${FIELD[2]}
+		date=${FIELD[1]}
+		satt=${FIELD[3]}
+		alt=${FIELD[4]}
+		altd=${FIELD[5]}
+		long=${FIELD[6]}
+		longd=${FIELD[7]}
+	else
+		continue
+	fi
 
 	if [ "$satt" != "A" ] && [ "$SKIPINVALID" == "1" ]; then continue; fi
 
