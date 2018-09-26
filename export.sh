@@ -3,12 +3,23 @@
 SKIPINVALID=1
 DATELIMIT=$1
 
+SIG_H0="*"
+SIG_WA="["
+
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" creator=\"h02-server\">"
 echo "<trk><trkseg>"
 
 laststat=0
-while IFS=, read -r sig id ver time satt alt altd long longd speed az date flags data1 data3 data4 data5
+while IFS=, read -r -a FIELD
 do
+
+	time=${FIELD[3]}
+	date=${FIELD[11]}
+	satt=${FIELD[4]}
+	alt=${FIELD[5]}
+	altd=${FIELD[6]}
+	long=${FIELD[7]}
+	longd=${FIELD[8]}
 
 	if [ "$satt" != "A" ] && [ "$SKIPINVALID" == "1" ]; then continue; fi
 
