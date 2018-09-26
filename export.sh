@@ -6,7 +6,8 @@ DATELIMIT=$1
 SIG_H0="*"
 SIG_WA="["
 
-echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" creator=\"h02-server\">"
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+echo "<gpx version=\"1.1\" creator=\"https://github.com/antnks/gps-simple-server\">"
 echo "<trk><trkseg>"
 
 laststat=0
