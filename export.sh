@@ -23,6 +23,15 @@ do
 		altd=${FIELD[6]}
 		long=${FIELD[7]}
 		longd=${FIELD[8]}
+
+		altdeg="$(echo $alt | head -c 2)"
+		altpoi="$(echo $alt | tail -c 8)"
+		altitude=`bc <<< "scale=4; $altdeg+$altpoi*100/60/100"`
+
+		longdeg="$(echo $long | head -c 3)"
+		longpoi="$(echo $long | tail -c 8)"
+		longitude=`bc <<< "scale=4; $longdeg+$longpoi*100/60/100"`
+
 	elif [ "$sig" == "$SIG_WA" ]
 	then
 		time=${FIELD[2]}
@@ -32,6 +41,9 @@ do
 		altd=${FIELD[5]}
 		long=${FIELD[6]}
 		longd=${FIELD[7]}
+
+		altitude=$alt
+		longitude=$long
 	else
 		continue
 	fi
@@ -57,14 +69,6 @@ do
 	h="$(echo $time | head -c 2)"
 	m="$(echo $time | head -c 4 | tail -c 2)"
 	s="$(echo $time | tail -c 3)"
-
-	altdeg="$(echo $alt | head -c 2)"
-	altpoi="$(echo $alt | tail -c 8)"
-	altitude=`bc <<< "scale=4; $altdeg+$altpoi*100/60/100"`
-
-	longdeg="$(echo $long | head -c 3)"
-	longpoi="$(echo $long | tail -c 8)"
-	longitude=`bc <<< "scale=4; $longdeg+$longpoi*100/60/100"`
 
 	echo "<trkpt lat=\"$altitude\" lon=\"$longitude\">"
 	echo "<time>20${y}-${M}-${d}T${h}:${m}:${s}Z</time>"
